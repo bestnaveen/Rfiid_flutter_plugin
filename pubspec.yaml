@@ -1,0 +1,30 @@
+name: rfiid_reader
+description: A new Flutter project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=2.19.4 <3.0.0'
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.4
+  permission_handler: ^10.2.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+
+  plugin:
+    platforms:
+      android:
+        package: com.example.rfiid_reader
+        pluginClass: RfiidReaderPlugin
+      ios:
+        pluginClass: RfiidReaderPlugin
