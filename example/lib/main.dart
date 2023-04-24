@@ -45,7 +45,13 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> channelTest() async {
     if (await BluetoothPermissionManager.checkAndRequestPermissions()) {
-      await RfiidReaderPlatform.instance.openBluetooth();
+      final isBluetoothOpen = await _rfiidReaderPlugin.isBluetoothOn();
+      print("is open blue - $isBluetoothOpen");
+      if (!isBluetoothOpen) {
+        await _rfiidReaderPlugin.openBluetooth();
+      }
+      final getConnectedDevice = await _rfiidReaderPlugin.getConnectedDevice();
+      print("connected device - $getConnectedDevice");
       final res = await RfiidReaderPlatform.instance.getBT4DeviceStrList();
       print("devices - $res");
       if (res != null) {

@@ -60,7 +60,55 @@ class MockRfiidReaderPlatform
   }
 
   @override
-  Future<int?> stopPingPong({required String connID}) {
+  Future<String?> closeAllConnection() {
+    // TODO: implement closeAllConnection
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> closeBluetooth() {
+    // TODO: implement closeBluetooth
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> closeConnection({required String connId}) {
+    // TODO: implement closeConnection
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool?> create485Conn({required String bT4Param, required log}) {
+    // TODO: implement create485Conn
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> getConnectedDevice() {
+    // TODO: implement getConnectedDevice
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isBluetoothOn() {
+    // TODO: implement isBluetoothOn
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream? readDataStream({required String connID}) {
+    // TODO: implement readDataStream
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Map<String, dynamic>?> stopConnection({required String connID}) {
+    // TODO: implement stopConnection
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Map<String, dynamic>?> stopPingPong({required String connID}) {
     // TODO: implement stopPingPong
     throw UnimplementedError();
   }
