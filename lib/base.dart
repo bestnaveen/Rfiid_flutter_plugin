@@ -14,3 +14,6 @@ const String closeBluetoothMethod = "closeBluetooth";
 const String closeConnectionMethod = "closeConnection";
 const String closeAllConnectionMethod = "closeAllConnection";
 const String create485ConnMethod = "create485Conn";
+
+const String isBluetoothOnChannel = "is_bluetooth_on";
+const String connectedDeviceChannel = "connected_device";

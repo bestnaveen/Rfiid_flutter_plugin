@@ -137,4 +137,21 @@ class MethodChannelRfiidReader extends RfiidReaderPlatform {
     });
     return newMap;
   }
+
+  @override
+  Future<String?> getConnectedDevice() async {
+    return await methodChannel.invokeMethod<String?>(connectedDeviceChannel);
+  }
+
+  @override
+  Future<bool> isBluetoothOn() async {
+    final res = await methodChannel.invokeMethod<Map<Object?, Object?>>(
+      isBluetoothOnChannel,
+    );
+    if (res != null && res['isBluetoothOn'] != null) {
+      return res['isBluetoothOn'] as bool;
+    } else {
+      return false;
+    }
+  }
 }

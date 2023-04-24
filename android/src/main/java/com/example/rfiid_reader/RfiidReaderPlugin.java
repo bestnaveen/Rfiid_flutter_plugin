@@ -1,6 +1,8 @@
 package com.example.rfiid_reader;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
@@ -57,6 +60,9 @@ public class RfiidReaderPlugin implements FlutterPlugin, MethodCallHandler, Even
   private static final String CloseAllConnectionMethod = "closeAllConnection";
   private static final String Create485ConnMethod = "create485Conn";
 
+  private static final String IsBluetoothOn = "is_bluetooth_on";
+
+  private static final String ConnectedDevice = "connected_device";
 
   private RfidReaderHelper rfidReaderHelper;
 
@@ -71,6 +77,8 @@ public class RfiidReaderPlugin implements FlutterPlugin, MethodCallHandler, Even
   private EventChannel.EventSink eventSink;
 
   private Handler handler = new Handler(Looper.getMainLooper());
+
+  BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -88,7 +96,6 @@ public class RfiidReaderPlugin implements FlutterPlugin, MethodCallHandler, Even
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-
     switch (call.method){
       case OpenBluetooth:
         openBluetooth(call,result);
@@ -121,20 +128,45 @@ public class RfiidReaderPlugin implements FlutterPlugin, MethodCallHandler, Even
       case StartPingPong:
         startPingPong(call,result);
         break;
+      case IsBluetoothOn:
+        isBluetoothOn(call,result);
+        break;
+      case ConnectedDevice:
+        getConnectedDevice(call,result);
       case "getPlatformVersion":
         result.success("Android " + android.os.Build.VERSION.RELEASE);
       default:
         result.notImplemented();
     }
+  }
 
-    //    if (call.method.equals("getPlatformVersion")) {
-    //      result.success("Android " + android.os.Build.VERSION.RELEASE);
-    //    }else if(call.method.equals("")){
-    //      RFIDReader.OpenBluetooth();
-    //    } else {
-    //      result.notImplemented();
-    //    }
+  private void getConnectedDevice(MethodCall call, Result result) {
+    Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+    String deviceId = null;
+    for (BluetoothDevice device : pairedDevices) {
+      // Get the device ID
+      deviceId = device.getAddress();
+      Log.d("Bluetooth", "Connected device ID: " + deviceId);
+      break;
+    }
+    result.success(deviceId);
+  }
 
+  private void isBluetoothOn(MethodCall call, Result result) {
+    Map<String, Object> responseData = new HashMap<>();
+    if (bluetoothAdapter == null) {
+      responseData.put("isSupported",false);
+      responseData.put("isBluetoothOn",false);
+    } else {
+      if (bluetoothAdapter.isEnabled()) {
+        responseData.put("isSupported",true);
+        responseData.put("isBluetoothOn",true);
+      } else {
+        responseData.put("isSupported",true);
+        responseData.put("isBluetoothOn",false);
+      }
+    }
+    result.success(responseData);
   }
 
   private void openBluetooth(MethodCall call, Result result) {

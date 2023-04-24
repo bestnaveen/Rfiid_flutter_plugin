@@ -46,6 +46,8 @@ abstract class RfiidReaderPlatform extends PlatformInterface {
 
   Future<Map<String, dynamic>?> stopPingPong({required String connID});
   Future<Map<String, dynamic>?> stopConnection({required String connID});
+  Future<bool> isBluetoothOn();
+  Future<String?> getConnectedDevice();
 
   Future<String?> setBeep({required String connID, required int onORoff});
 

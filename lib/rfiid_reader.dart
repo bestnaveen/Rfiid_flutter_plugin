@@ -56,4 +56,9 @@ class RfiidReader {
   Future<bool?> create485Conn(
           {required String bT4Param, required dynamic log}) =>
       RfiidReaderPlatform.instance.create485Conn(bT4Param: bT4Param, log: log);
+
+  Future<String?> getConnectedDevice() =>
+      RfiidReaderPlatform.instance.getConnectedDevice();
+
+  Future<bool> isBluetoothOn() => RfiidReaderPlatform.instance.isBluetoothOn();
 }
