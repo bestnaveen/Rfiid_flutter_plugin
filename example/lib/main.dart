@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   String? batteryLevel;
 
   bool _working = false;
+  bool _connecting = false;
 
   @override
   void initState() {
@@ -191,6 +192,10 @@ class _MyAppState extends State<MyApp> {
                           ),
                           TextButton(
                             onPressed: () async {
+                              if (currentConnection != null) {
+                                await _rfiidReaderPlugin.stopPingPong(
+                                    connID: currentConnection!);
+                              }
                               final success =
                                   await _rfiidReaderPlugin.closeAllConnection();
                               if (success == "true") {
