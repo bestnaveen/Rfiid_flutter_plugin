@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rfiid_reader_example">
+    package="com.example.rfiid_reader_example"
+    xmlns:tools="http://schemas.android.com/tools">
    <application
         android:label="rfiid_reader_example"
         android:name="${applicationName}"

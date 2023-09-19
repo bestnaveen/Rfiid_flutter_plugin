@@ -1,0 +1,4 @@
+package example.android.RFIDAPI3Library
+
+configurations.maybeCreate("default")
+artifacts.add("default", file('RFIDAPI3Library.aar'))

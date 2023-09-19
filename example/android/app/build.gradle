@@ -34,6 +34,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.rfiid_reader_example"
@@ -57,3 +61,8 @@ android {
 flutter {
     source '../..'
 }
+
+dependencies {
+    implementation project(":RFIDAPI3Library",)
+}
+
