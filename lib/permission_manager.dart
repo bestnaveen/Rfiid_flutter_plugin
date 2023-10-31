@@ -4,23 +4,21 @@ class BluetoothPermissionManager {
   static Future<bool> checkAndRequestPermissions() async {
     bool isScanBluetoothGranted =
         await Permission.bluetoothScan.status.isGranted;
-    bool isBluetoothGranted = await Permission.bluetooth.status.isGranted;
+    //bool isBluetoothGranted = await Permission.bluetooth.status.isGranted;
     bool isConnectBluetoothGranted =
         await Permission.bluetoothConnect.status.isGranted;
     bool isAdvertiseBluetoothGranted =
         await Permission.bluetoothAdvertise.status.isGranted;
-    if (!isBluetoothGranted ||
+    if (
         !isScanBluetoothGranted ||
         !isConnectBluetoothGranted ||
         !isAdvertiseBluetoothGranted) {
       Map<Permission, PermissionStatus> statuses = await [
-        Permission.bluetooth,
+        //Permission.bluetooth,
         Permission.bluetoothAdvertise,
         Permission.bluetoothScan,
         Permission.bluetoothConnect
       ].request();
-      isBluetoothGranted =
-          statuses[Permission.bluetooth] == PermissionStatus.granted;
       isScanBluetoothGranted =
           statuses[Permission.bluetoothScan] == PermissionStatus.granted;
       isConnectBluetoothGranted =
@@ -28,7 +26,7 @@ class BluetoothPermissionManager {
       isAdvertiseBluetoothGranted =
           statuses[Permission.bluetoothAdvertise] == PermissionStatus.granted;
     }
-    return isBluetoothGranted &&
+    return 
         isScanBluetoothGranted &&
         isConnectBluetoothGranted &&
         isAdvertiseBluetoothGranted;
